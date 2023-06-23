@@ -1,10 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import config from "../config";
+import { useNavigate } from "react-router-dom";
 
 function RegistrationForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
 	const handleEmailChange = (e) => {
 		setEmail(e.target.value);
@@ -17,7 +21,8 @@ function RegistrationForm() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// Handle registration logic here
-		const baseUrl = import.meta.env.VITE_API_URL;
+		const { baseUrl } = config.Api;
+
 		axios
 			.post(`${baseUrl}/auth/register`, { email, password })
 			.then(({ data }) => {
@@ -26,6 +31,10 @@ function RegistrationForm() {
 				// Reset form fields
 				setEmail("");
 				setPassword("");
+
+        // TODO: Store token in local storage
+        // redirect to home page
+        navigate("/");
 			})
 			.catch((err) => {
 				console.log(err);

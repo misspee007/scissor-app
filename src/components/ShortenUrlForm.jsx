@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import config from "../config";
 
 function ShortenUrlForm() {
 	const [originalUrl, setOriginalUrl] = useState("");
@@ -12,7 +13,8 @@ function ShortenUrlForm() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// Handle URL shortening logic here
-		const baseUrl = import.meta.env.VITE_API_URL;
+		const { baseUrl } = config.Api;
+
 		axios
 			.post(`${baseUrl}/url`, { longUrl: originalUrl })
 			.then(({ data }) => {

@@ -20,18 +20,17 @@ function LoginForm() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Handle login logic here (e.g., make API call to backend)
 		const { baseUrl } = config.Api;
 		axios
 			.post(`${baseUrl}/auth/login`, { email, password })
 			.then(({ data }) => {
-				console.log("Login successful:", data);
-
 				// Reset form fields
 				setEmail("");
 				setPassword("");
 
-        // TODO: Store token in local storage
+        // store token in cookie
+        document.cookie = `access_token=${data.access_token}`;
+
         // redirect to home page
         navigate("/");
 			})

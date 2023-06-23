@@ -20,19 +20,18 @@ function RegistrationForm() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Handle registration logic here
-		const { baseUrl } = config.Api;
 
+    const { baseUrl } = config.Api;
 		axios
 			.post(`${baseUrl}/auth/register`, { email, password })
 			.then(({ data }) => {
-				console.log("Registration successful:", data);
-
 				// Reset form fields
 				setEmail("");
 				setPassword("");
 
-        // TODO: Store token in local storage
+        // Store token in cookie
+        document.cookie = `access_token=${data.access_token}`;
+
         // redirect to home page
         navigate("/");
 			})

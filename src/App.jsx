@@ -1,28 +1,30 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import RegistrationPage from './pages/RegistrationPage';
-import LoginPage from './pages/LoginPage';
-import ShortenUrlPage from './pages/ShortenUrlPage';
-import AnalyticsPage from './pages/AnalyticsPage';
-import UserUrlsPage from './pages/UserUrlsPage';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AppNavbar } from "./components";
+import {
+	HomePage,
+	RegistrationPage,
+	LoginPage,
+	ShortenUrlPage,
+	AnalyticsPage,
+	UserUrlsPage,
+} from "./pages";
 
 function App() {
-  return (
-    <Router>
-      <div>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/register" component={RegistrationPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/shorten-url" component={ShortenUrlPage} />
-          <Route exact path="/analytics" component={AnalyticsPage} />
-          <Route exact path="/user-urls" component={UserUrlsPage} />
-        </Switch>
-      </div>
-    </Router>
-  );
+	return (
+		<Router>
+			<div>
+				<AppNavbar />
+				<Routes>
+					<Route exact path="/" element={<HomePage />} />
+					<Route exact path="/register" element={<RegistrationPage />} />
+					<Route exact path="/login" element={<LoginPage />} />
+					<Route exact path="/shorten-url" element={<ShortenUrlPage />} />
+					<Route exact path="/analytics" element={<AnalyticsPage />} />
+					<Route exact path="/user-urls" element={<UserUrlsPage />} />
+				</Routes>
+			</div>
+		</Router>
+	);
 }
 
 export default App;

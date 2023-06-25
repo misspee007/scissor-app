@@ -8,6 +8,7 @@ function UserUrlsPage() {
 	const [userUrls, setUserUrls] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
+	const [error, setError] = useState("");
 
 	useEffect(() => {
 		const fetchUserUrls = async () => {
@@ -28,13 +29,26 @@ function UserUrlsPage() {
 					.then(({ data }) => {
 						setUserUrls(data.urls);
 						setTotalPages(Math.ceil(data.count / 5));
-						console.log("totalPages: ", totalPages);
 					})
-					.catch((error) => {
+					.catch((err) => {
 						console.log("error: ", error);
+						if (
+							err.response &&
+							err.response.data &&
+							err.response.data.message
+						) {
+							setError(err.response.data.message);
+						} else {
+							setError(
+								"An error occurred while fetching the URLs. Please refresh the page."
+							);
+						}
 					});
 			} catch (error) {
 				console.log(error);
+				setError(
+					"An error occurred while fetching the URLs. Please refresh the page."
+				);
 			}
 		};
 
@@ -58,8 +72,15 @@ function UserUrlsPage() {
 					prevUserUrls.filter((url) => url.shortUrlId !== shortUrlId)
 				);
 			})
-			.catch((error) => {
+			.catch((err) => {
 				console.log("error: ", error);
+				if (err.response && err.response.data && err.response.data.message) {
+					setError(err.response.data.message);
+				} else {
+					setError(
+						"An error occurred while deleting the URL. Please try again."
+					);
+				}
 			});
 	};
 
@@ -88,17 +109,28 @@ function UserUrlsPage() {
 						)
 					);
 				})
-				.catch((error) => {
+				.catch((err) => {
 					console.log("error: ", error);
+					if (err.response && err.response.data && err.response.data.message) {
+						setError(err.response.data.message);
+					} else {
+						setError(
+							"An error occurred while generating the QR code. Please try again."
+						);
+					}
 				});
 		} catch (error) {
 			console.log(error);
+			setError(
+				"An error occurred while generating the QR code. Please try again."
+			);
 		}
 	};
 
 	return (
 		<div>
 			<h2>URLs</h2>
+      {error && <Alert variant="danger">{error}</Alert>}
 
 			{!userUrls || userUrls.length === 0 ? (
 				<Alert variant="info">No URLs created yet.</Alert>

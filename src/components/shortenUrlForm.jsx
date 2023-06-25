@@ -37,15 +37,17 @@ function ShortenUrlForm() {
 				setOriginalUrl("");
 			})
 			.catch((err) => {
-				console.log(err);
-				setError("An error occurred while shortening the URL.");
+				if (err.response && err.response.data && err.response.data.message) {
+					setError(err.response.data.message);
+				} else {
+					setError("An error occurred while shortening the URL.");
+				}
 				setShortenedUrl("");
 			});
 	};
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(shortenedUrl);
-		// Optionally show a notification or feedback to the user
 		alert("Shortened URL copied to clipboard!");
 	};
 

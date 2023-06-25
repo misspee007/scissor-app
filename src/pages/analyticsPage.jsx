@@ -9,6 +9,7 @@ function AnalyticsPage() {
 	const [analyticsData, setAnalyticsData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
+	const [error, setError] = useState("");
 
 	useEffect(() => {
 		const fetchAnalyticsData = async () => {
@@ -30,11 +31,21 @@ function AnalyticsPage() {
 						setAnalyticsData(data.analytics);
 						setTotalPages(data.count);
 					})
-					.catch((error) => {
+					.catch((err) => {
 						console.log("error: ", error);
+						if (
+							err.response &&
+							err.response.data &&
+							err.response.data.message
+						) {
+							setError(err.response.data.message);
+						} else {
+							setError("An error occurred while fetching the analytics data. Please refresh the page.");
+						}
 					});
 			} catch (error) {
 				console.log(error);
+        setError("An error occurred while fetching the analytics data. Please refresh the page.");
 			}
 		};
 
@@ -48,6 +59,8 @@ function AnalyticsPage() {
 	return (
 		<div>
 			<h2>URL Analytics</h2>
+
+      {error && <Alert variant="danger">{error}</Alert>}
 
 			{analyticsData.length === 0 ? (
 				<Alert variant="info">
@@ -71,7 +84,7 @@ function AnalyticsPage() {
 											<thead>
 												<tr>
 													<th>Timestamp</th>
-                          <th>IP Address</th>
+													<th>IP Address</th>
 													<th>User Agent</th>
 												</tr>
 											</thead>
@@ -79,7 +92,7 @@ function AnalyticsPage() {
 												{item.clickEvents.map((clickEvent) => (
 													<tr key={clickEvent.id}>
 														<td>{clickEvent.timestamp || "N/A"}</td>
-                            <td>{clickEvent.ipAddress || "N/A"}</td>
+														<td>{clickEvent.ipAddress || "N/A"}</td>
 														<td>{clickEvent.userAgent || "N/A"}</td>
 													</tr>
 												))}

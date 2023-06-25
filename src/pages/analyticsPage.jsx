@@ -59,8 +59,8 @@ function AnalyticsPage() {
 					<ListGroup>
 						{analyticsData.map((item) => (
 							<ListGroup.Item key={item.id}>
-								<div>Original URL: {item.longUrl}</div>
-								<div>Short URL: {item.shortUrl}</div>
+								<div>Original URL: {item.url.longUrl}</div>
+								<div>Short URL: {item.url.shortUrl}</div>
 								<div>Number of clicks: {item.clicks}</div>
 
 								{item.clicks > 0 && (

@@ -5,7 +5,7 @@ function AppNavbar() {
 	return (
 		<Navbar bg="dark" variant="dark">
 			<Navbar.Brand as={Link} to="/">
-				Scissor App
+				Snip It
 			</Navbar.Brand>
 			<Nav className="mr-auto">
 				<Nav.Link as={Link} to="/register">

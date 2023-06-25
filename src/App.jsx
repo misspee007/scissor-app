@@ -19,7 +19,9 @@ function App() {
 					<Route exact path="/login" element={<LoginPage />} />
 					<Route exact path="/analytics" element={<AnalyticsPage />} />
 					<Route exact path="/user-urls" element={<UserUrlsPage />} />
-          <Route path="/:shortUrlId" element={<ShortUrlRedirect />} />
+					<Route path="/:shortUrlId" element={<ShortUrlRedirect />} />
+					{/* 404 route */}
+					<Route path="*" element={<h1>404 Not Found</h1>} />
 				</Routes>
 			</div>
 		</Router>

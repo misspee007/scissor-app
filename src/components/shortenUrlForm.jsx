@@ -13,7 +13,6 @@ function ShortenUrlForm() {
 	useEffect(() => {
 		const retrievedAccessToken = getCookie("access_token");
 		setAccessToken(retrievedAccessToken);
-		console.log("accessToken: ", accessToken);
 	}, []);
 
 	useEffect(() => {

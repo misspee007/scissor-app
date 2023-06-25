@@ -3,7 +3,7 @@ import { ShortenUrlForm } from "../components";
 function ShortenUrlPage() {
 	return (
 		<div>
-			<h1>Shorten It!</h1>
+			<h1>Snip It!</h1>
 			<ShortenUrlForm />
 		</div>
 	);

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { AppNavbar } from "./components";
+import { AppNavbar, ShortUrlRedirect } from "./components";
 import {
 	RegistrationPage,
 	LoginPage,
@@ -19,6 +19,7 @@ function App() {
 					<Route exact path="/login" element={<LoginPage />} />
 					<Route exact path="/analytics" element={<AnalyticsPage />} />
 					<Route exact path="/user-urls" element={<UserUrlsPage />} />
+          <Route path="/:shortUrlId" element={<ShortUrlRedirect />} />
 				</Routes>
 			</div>
 		</Router>

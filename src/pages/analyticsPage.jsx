@@ -51,7 +51,7 @@ function AnalyticsPage() {
 
 			{analyticsData.length === 0 ? (
 				<Alert variant="info">
-					Analytics refreshes every other minute. If you have not{" "}
+					Data is collated every 2 - 3 minutes. If you have not{" "}
 					<Link to={"/"}>shortened a URL</Link>, please do so now.
 				</Alert>
 			) : (
@@ -70,23 +70,17 @@ function AnalyticsPage() {
 										<table className="table table-striped">
 											<thead>
 												<tr>
-													<th>Referer</th>
 													<th>Timestamp</th>
+                          <th>IP Address</th>
 													<th>User Agent</th>
-													<th>IP Address</th>
-													<th>Device Type</th>
-													<th>Click Coordinates</th>
 												</tr>
 											</thead>
 											<tbody>
 												{item.clickEvents.map((clickEvent) => (
 													<tr key={clickEvent.id}>
-														<td>{clickEvent.referer || "N/A"}</td>
 														<td>{clickEvent.timestamp || "N/A"}</td>
-														<td>{clickEvent.userAgent  || "N/A"}</td>
-														<td>{clickEvent.ipAddress  || "N/A"}</td>
-														<td>{clickEvent.deviceType  || "N/A"}</td>
-														<td>{clickEvent.clickCoordinates  || "N/A"}</td>
+                            <td>{clickEvent.ipAddress || "N/A"}</td>
+														<td>{clickEvent.userAgent || "N/A"}</td>
 													</tr>
 												))}
 											</tbody>

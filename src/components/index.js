@@ -1,6 +1,6 @@
-import AppNavbar from "./navbar.jsx";
-import LoginForm from "./loginForm.jsx";
-import RegistrationForm from "./registrationForm.jsx";
-import ShortenUrlForm from "./shortenUrlForm.jsx";
+import AppNavbar from "./Navbar";
+import LoginForm from "./LoginForm";
+import RegistrationForm from "./RegistrationForm";
+import ShortenUrlForm from "./ShortenUrlForm";
 
 export { AppNavbar, LoginForm, RegistrationForm, ShortenUrlForm };

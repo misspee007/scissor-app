@@ -1,8 +1,8 @@
-import AnalyticsPage from "./analyticsPage";
-import LoginPage from "./loginPage";
-import RegistrationPage from "./registrationPage";
-import ShortenUrlPage from "./shortenUrlPage";
-import UserUrlsPage from "./userUrlsPage";
+import AnalyticsPage from "./analyticsPage.jsx";
+import LoginPage from "./loginPage.jsx";
+import RegistrationPage from "./registrationPage.jsx";
+import ShortenUrlPage from "./shortenUrlPage.jsx";
+import UserUrlsPage from "./userUrlsPage.jsx";
 
 export {
 	AnalyticsPage,

@@ -1,6 +1,6 @@
-# Scissor App
+# SnipIt App
 
-Scissor App is a web application for URL shortening and analytics.
+SnipIt App is a web application for URL shortening and analytics.
 
 ## Features
 
@@ -71,7 +71,7 @@ Scissor App is a web application for URL shortening and analytics.
 ## Folder Structure
 
   ```
-  scissor-app
+  snipit-app
   ├── public
   ├── src
   │   ├── assets

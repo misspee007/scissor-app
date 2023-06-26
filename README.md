@@ -2,6 +2,14 @@
 
 SnipIt App is a web application for URL shortening and analytics.
 
+## Live
+The app is hosted at https://snipt.vercel.app.
+
+## API
+- The backend is hosted at https://snipit-ad1a50f4a478.herokuapp.com.
+- Backend repository: https://github.com/misspee007/scissor.
+- API Documentation: https://snipit-ad1a50f4a478.herokuapp.com/docs.
+
 ## Features
 
 - User registration and authentication
@@ -16,15 +24,8 @@ SnipIt App is a web application for URL shortening and analytics.
 - React Router
 - React Bootstrap
 - Axios (for HTTP requests)
-- Express (for backend server)
-- MongoDB (as the database)
 
 ## Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or above)
-- MongoDB
 
 ### Installation
 
@@ -50,7 +51,7 @@ SnipIt App is a web application for URL shortening and analytics.
 4. Create a `.env` file in the root directory of the project and add the following environment variables:
 
    ```bash
-   API_URL=http://localhost:5000
+   API_URL=http://localhost:3000
    ```
 
 5. Start the development server:
@@ -59,7 +60,7 @@ SnipIt App is a web application for URL shortening and analytics.
     npm run dev
     ```
 
-6. Open your browser and navigate to `http://localhost:3000` to view the app.
+6. Open your browser and navigate to `http://localhost:5173` to view the app.
 
 ## Usage
 - Register a new user account by visiting the registration page.
@@ -74,19 +75,19 @@ SnipIt App is a web application for URL shortening and analytics.
   snipit-app
   ├── public
   ├── src
-  │   ├── assets
   │   ├── components
+  │   ├── config
+  │   ├── helpers
   │   ├── pages
   │   ├── App.jsx
-  │   ├── main.jsx
-  │   └── index.css
-  ├── .env
+  │   └── main.jsx
   ├── .eslintrc.cjs
   ├── .gitignore
+  ├── README.md
   ├── index.html
   ├── package-lock.json
   ├── package.json
-  ├── README.md
+  ├── vercel.json
   └── vite.config.js
   ```
 

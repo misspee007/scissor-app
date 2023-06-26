@@ -54,8 +54,10 @@ function ShortenUrlForm() {
 	return (
 		<Form onSubmit={handleSubmit}>
 			{error && <Alert variant="danger">{error}</Alert>}
+      <p>1. Login </p>
+
 			<Form.Group controlId="formOriginalUrl">
-				<Form.Label> Paste your long URL below to shorten it.</Form.Label>
+				<Form.Label> 2. Paste your long URL below to shorten it.</Form.Label>
 				<Form.Control
 					type="text"
 					placeholder="Enter the URL to shorten"

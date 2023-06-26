@@ -1,3 +1,5 @@
+import UAParser from 'ua-parser-js';
+
 function getCookie(name) {
 	const cookies = document.cookie.split("; ");
 	for (let i = 0; i < cookies.length; i++) {
@@ -26,4 +28,18 @@ function checkTokenExpiration() {
   }
 }
 
-export { getCookie, checkTokenExpiration };
+function parseUserAgent(userAgent) {
+  const parser = new UAParser();
+  const result = parser.setUA(userAgent).getResult();
+
+  const { browser, engine, os } = result;
+
+  return {
+    browser: `${browser.name} ${browser.version}`,
+    engine: `${engine.name} ${engine.version}`,
+    os: `${os.name} ${os.version}`,
+  };
+}
+
+
+export { getCookie, checkTokenExpiration, parseUserAgent };

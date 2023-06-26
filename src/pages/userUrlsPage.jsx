@@ -11,6 +11,8 @@ function UserUrlsPage() {
 	const [error, setError] = useState("");
 
 	useEffect(() => {
+		setError("");
+
 		const fetchUserUrls = async () => {
 			try {
 				const { baseUrl } = config.Api;
@@ -31,7 +33,6 @@ function UserUrlsPage() {
 						setTotalPages(Math.ceil(data.count / 5));
 					})
 					.catch((err) => {
-						console.log("error: ", error);
 						if (
 							err.response &&
 							err.response.data &&
@@ -45,7 +46,6 @@ function UserUrlsPage() {
 						}
 					});
 			} catch (error) {
-				console.log(error);
 				setError(
 					"An error occurred while fetching the URLs. Please refresh the page."
 				);
@@ -53,6 +53,7 @@ function UserUrlsPage() {
 		};
 
 		fetchUserUrls();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPage, totalPages]);
 
 	const handleDeleteUrl = (shortUrlId) => {
@@ -73,7 +74,6 @@ function UserUrlsPage() {
 				);
 			})
 			.catch((err) => {
-				console.log("error: ", error);
 				if (err.response && err.response.data && err.response.data.message) {
 					setError(err.response.data.message);
 				} else {
@@ -104,13 +104,12 @@ function UserUrlsPage() {
 					setUserUrls((prevUserUrls) =>
 						prevUserUrls.map((url) =>
 							url.shortUrlId === shortUrlId
-								? { ...url, qrcode: data.image }
+								? { ...url, qrCode: data.image }
 								: url
 						)
 					);
 				})
 				.catch((err) => {
-					console.log("error: ", error);
 					if (err.response && err.response.data && err.response.data.message) {
 						setError(err.response.data.message);
 					} else {
@@ -120,7 +119,6 @@ function UserUrlsPage() {
 					}
 				});
 		} catch (error) {
-			console.log(error);
 			setError(
 				"An error occurred while generating the QR code. Please try again."
 			);
@@ -130,7 +128,7 @@ function UserUrlsPage() {
 	return (
 		<div>
 			<h2>URLs</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
+			{error && <Alert variant="danger">{error}</Alert>}
 
 			{!userUrls || userUrls.length === 0 ? (
 				<Alert variant="info">No URLs created yet.</Alert>
@@ -139,18 +137,14 @@ function UserUrlsPage() {
 					<ListGroup>
 						{userUrls.map((url) => (
 							<ListGroup.Item key={url.id}>
-								<div>Original URL: {url.longUrl}</div>
-								<div>Short URL: {url.shortUrl}</div>
-								{url.qrcode ? (
-									<>
-										<img src={url.qrcode} alt="QR Code" />
-										<Button
-											variant="primary"
-											onClick={() => handleGenerateQrcode(url.shortUrlId)}
-										>
-											Regenerate QR Code
-										</Button>
-									</>
+								<div>
+									<strong>Original URL:</strong> {url.longUrl}
+								</div>
+								<div>
+									<strong>Short URL:</strong> {url.shortUrl}
+								</div>
+								{url.qrCode ? (
+									<img src={`${url.qrCode.image}`} alt="QR Code" />
 								) : (
 									<Button
 										variant="primary"

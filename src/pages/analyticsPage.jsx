@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { ListGroup, Alert, Pagination } from "react-bootstrap";
+import { ListGroup, Alert, Pagination, Row, Col, Container } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import config from "../config";
-import { getCookie } from "../helpers";
+import { getCookie, parseUserAgent } from "../helpers";
 
 function AnalyticsPage() {
 	const [analyticsData, setAnalyticsData] = useState([]);
@@ -28,6 +28,12 @@ function AnalyticsPage() {
 						},
 					})
 					.then(({ data }) => {
+						// Parse the user agent string
+						data.analytics.forEach((item) => {
+							item.clickEvents.forEach((clickEvent) => {
+								clickEvent.userAgent = parseUserAgent(clickEvent.userAgent);
+							});
+						});
 						setAnalyticsData(data.analytics);
 						setTotalPages(data.count);
 					})
@@ -40,16 +46,21 @@ function AnalyticsPage() {
 						) {
 							setError(err.response.data.message);
 						} else {
-							setError("An error occurred while fetching the analytics data. Please refresh the page.");
+							setError(
+								"An error occurred while fetching the analytics data. Please refresh the page."
+							);
 						}
 					});
 			} catch (error) {
 				console.log(error);
-        setError("An error occurred while fetching the analytics data. Please refresh the page.");
+				setError(
+					"An error occurred while fetching the analytics data. Please refresh the page."
+				);
 			}
 		};
 
 		fetchAnalyticsData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPage]);
 
 	const handlePageChange = (page) => {
@@ -57,43 +68,56 @@ function AnalyticsPage() {
 	};
 
 	return (
-		<div>
-			<h2>URL Analytics</h2>
+		<Container>
+			<h2 className="text-left" style={{ textAlign: 'left' }}>URL Analytics</h2>
 
-      {error && <Alert variant="danger">{error}</Alert>}
+			{error && <Alert variant="danger">{error}</Alert>}
 
 			{analyticsData.length === 0 ? (
 				<Alert variant="info">
-					Data is collated every 2 - 3 minutes. If you have not{" "}
-					<Link to={"/"}>shortened a URL</Link>, please do so now.
+					Data is collated every 2 - 3 minutes. Please refresh the page. Got
+					another long URL? <Link to={"/"}>Snip it!</Link>
 				</Alert>
 			) : (
 				<>
 					<ListGroup>
 						{analyticsData.map((item) => (
-							<ListGroup.Item key={item.id}>
-								<div>Original URL: {item.url.longUrl}</div>
-								<div>Short URL: {item.url.shortUrl}</div>
-								<div>Number of clicks: {item.clicks}</div>
+							<ListGroup.Item key={item.id} style={{ textAlign: 'left' }}>
+								<Row className="text-left">
+									<Col>
+										<strong>Original URL:</strong> {item.url.longUrl}
+									</Col>
+								</Row>
+								<Row>
+									<Col>
+										<strong>Short URL:</strong> {item.url.shortUrl}
+									</Col>
+								</Row>
+								<Row>
+									<Col>
+										<strong>Number of clicks:</strong> {item.clicks}
+									</Col>
+								</Row>
 
 								{item.clicks > 0 && (
 									<>
-										<h5>Click Events:</h5>
 										{/* react-bootstrap table for referers and timestamp */}
 										<table className="table table-striped">
 											<thead>
 												<tr>
-													<th>Timestamp</th>
-													<th>IP Address</th>
-													<th>User Agent</th>
+													<th>Time Stamp</th>
+													<th>Browser</th>
+													<th>Engine</th>
+													<th>Operating System</th>
 												</tr>
 											</thead>
 											<tbody>
 												{item.clickEvents.map((clickEvent) => (
 													<tr key={clickEvent.id}>
 														<td>{clickEvent.timestamp || "N/A"}</td>
-														<td>{clickEvent.ipAddress || "N/A"}</td>
-														<td>{clickEvent.userAgent || "N/A"}</td>
+														<td>{clickEvent.userAgent.browser || "N/A"}</td>
+														<td>{clickEvent.userAgent.engine || "N/A"}</td>
+														<td>{clickEvent.userAgent.os || "N/A"}</td>
 													</tr>
 												))}
 											</tbody>
@@ -119,7 +143,7 @@ function AnalyticsPage() {
 					</Pagination>
 				</>
 			)}
-		</div>
+		</Container>
 	);
 }
 

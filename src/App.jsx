@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import { AppNavbar, ShortUrlRedirect } from "./components";
 import {
 	RegistrationPage,
@@ -13,6 +14,8 @@ function App() {
 		<Router>
 			<div>
 				<AppNavbar />
+			<Container className="app-container mx-auto my-3 p-3">
+
 				<Routes>
 					<Route exact path="/" element={<ShortenUrlPage />} />
 					<Route exact path="/register" element={<RegistrationPage />} />
@@ -23,6 +26,7 @@ function App() {
 					{/* 404 route */}
 					<Route path="*" element={<h1>404 Not Found</h1>} />
 				</Routes>
+      </Container>
 			</div>
 		</Router>
 	);
